@@ -56,7 +56,7 @@ func (s *Sender) SendMetricAlert(metricName string, usage, threshold float64, su
 	subject := fmt.Sprintf("%s Alert: %.2f%% on %s", prettyMetric, usage, hostname)
 	body := fmt.Sprintf(
 		"Hello,\n\n"+
-			"cpu-alert detected sustained high %s usage and triggered this notification.\n\n"+
+			"Linux Monitoring Agent detected sustained high %s usage and triggered this notification.\n\n"+
 			"Alert details:\n"+
 			"- Host: %s\n"+
 			"- Alert time: %s (%s)\n"+
@@ -71,7 +71,7 @@ func (s *Sender) SendMetricAlert(metricName string, usage, threshold float64, su
 			"1. Run: top or htop to inspect resource-heavy processes\n"+
 			"2. Check service logs: journalctl -xe\n"+
 			"3. Verify recent deployments or batch jobs\n\n"+
-			"This message was sent by cpu-alert.\n",
+			"This message was sent by Linux Monitoring Agent.\n",
 		metricName,
 		hostname,
 		localTime,

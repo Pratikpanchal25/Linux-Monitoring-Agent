@@ -1,4 +1,4 @@
-module cpu-alert
+module linux-monitoring-agent
 
 go 1.22
 

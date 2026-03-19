@@ -6,6 +6,6 @@ duration: 120
 cooldown: 300
 email:
   to: "your-email@example.com"
-  from: "cpu-alert@example.com"
+  from: "linux-monitoring-agent@example.com"
   smtp: "smtp.gmail.com:587"
   password: "your-app-password"

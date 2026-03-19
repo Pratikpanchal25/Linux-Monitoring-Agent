@@ -1,11 +1,11 @@
 # Debian Packaging
 
-This folder contains tooling to build a .deb package for cpu-alert.
+This folder contains tooling to build a .deb package for Linux Monitoring Agent.
 
 ## Why this exists
 
 End users should not need Go installed.
-They can install cpu-alert with a .deb package and manage it with systemd.
+They can install Linux Monitoring Agent with a .deb package and manage it with systemd.
 
 ## Build the .deb (maintainer/release machine)
 
@@ -14,14 +14,14 @@ They can install cpu-alert with a .deb package and manage it with systemd.
 
 Output package:
 
-    dist/cpu-alert_1.0.0_amd64.deb
+    dist/linux-monitoring-agent_1.0.0_amd64.deb
 
 ## Install the .deb (end user machine)
 
-    sudo dpkg -i cpu-alert_1.0.0_amd64.deb
-    sudo systemctl enable --now cpu-alert.service
-    sudo systemctl status cpu-alert.service
+    sudo dpkg -i linux-monitoring-agent_1.0.0_amd64.deb
+    sudo systemctl enable --now linux-monitoring-agent.service
+    sudo systemctl status linux-monitoring-agent.service
 
 Configuration file path:
 
-    /etc/cpu-alert/config.yaml
+    /etc/linux-monitoring-agent/config.yaml

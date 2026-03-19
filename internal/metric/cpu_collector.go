@@ -1,6 +1,6 @@
 package metric
 
-import "cpu-alert/internal/cpu"
+import "linux-monitoring-agent/internal/cpu"
 
 // CPUCollector samples CPU usage using /proc/stat deltas.
 type CPUCollector struct {

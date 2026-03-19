@@ -1,5 +1,5 @@
 # Binaries
-cpu-alert
+linux-monitoring-agent
 *.exe
 *.dll
 *.so

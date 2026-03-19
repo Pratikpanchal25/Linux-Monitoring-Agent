@@ -1,6 +1,6 @@
 package metric
 
-import "cpu-alert/internal/memory"
+import "linux-monitoring-agent/internal/memory"
 
 // MemoryCollector samples RAM usage using /proc/meminfo.
 type MemoryCollector struct{}

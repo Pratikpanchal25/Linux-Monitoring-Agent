@@ -5,9 +5,9 @@ import (
 	"log"
 	"time"
 
-	"cpu-alert/internal/config"
-	"cpu-alert/internal/email"
-	"cpu-alert/internal/metric"
+	"linux-monitoring-agent/internal/config"
+	"linux-monitoring-agent/internal/email"
+	"linux-monitoring-agent/internal/metric"
 )
 
 const (

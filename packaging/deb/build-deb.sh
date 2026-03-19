@@ -1,10 +1,10 @@
 #!/usr/bin/env sh
 set -eu
 
-# Build a Debian package for cpu-alert.
+# Build a Debian package for Linux Monitoring Agent.
 # This script is for maintainers/release builders, not end users.
 
-APP_NAME="cpu-alert"
+APP_NAME="linux-monitoring-agent"
 VERSION="${1:-1.0.0}"
 ARCH="${2:-amd64}"
 WORK_DIR="dist/${APP_NAME}_${VERSION}_${ARCH}"
@@ -23,15 +23,15 @@ fi
 rm -rf "${WORK_DIR}"
 mkdir -p "${DEBIAN_DIR}"
 mkdir -p "${WORK_DIR}/usr/local/bin"
-mkdir -p "${WORK_DIR}/etc/cpu-alert"
+mkdir -p "${WORK_DIR}/etc/linux-monitoring-agent"
 mkdir -p "${WORK_DIR}/lib/systemd/system"
 
 # Build static single-binary target.
-CGO_ENABLED=0 GOOS=linux GOARCH="${ARCH}" go build -trimpath -ldflags "-s -w" -o "${WORK_DIR}/usr/local/bin/${APP_NAME}" ./cmd/cpu-alert
+CGO_ENABLED=0 GOOS=linux GOARCH="${ARCH}" go build -trimpath -ldflags "-s -w" -o "${WORK_DIR}/usr/local/bin/${APP_NAME}" ./cmd/linux-monitoring-agent
 
 # Install runtime files.
-install -m 0644 ./configs/config.yaml "${WORK_DIR}/etc/cpu-alert/config.yaml"
-install -m 0644 ./packaging/systemd/cpu-alert.service "${WORK_DIR}/lib/systemd/system/cpu-alert.service"
+install -m 0644 ./configs/config.yaml "${WORK_DIR}/etc/linux-monitoring-agent/config.yaml"
+install -m 0644 ./packaging/systemd/linux-monitoring-agent.service "${WORK_DIR}/lib/systemd/system/linux-monitoring-agent.service"
 
 # Package metadata and lifecycle scripts.
 cat >"${DEBIAN_DIR}/control" <<EOF
@@ -40,16 +40,16 @@ Version: ${VERSION}
 Section: admin
 Priority: optional
 Architecture: ${ARCH}
-Maintainer: cpu-alert maintainers <maintainers@example.com>
+Maintainer: Linux Monitoring Agent maintainers <maintainers@example.com>
 Depends: systemd
-Description: Lightweight CPU and memory alert daemon
- cpu-alert monitors CPU (/proc/stat) and memory (/proc/meminfo),
+Description: Linux Monitoring Agent for CPU and memory alerts
+ Linux Monitoring Agent monitors CPU (/proc/stat) and memory (/proc/meminfo),
  then sends SMTP email alerts when usage is above configured thresholds
  for a sustained duration.
 EOF
 
 cat >"${DEBIAN_DIR}/conffiles" <<EOF
-/etc/cpu-alert/config.yaml
+/etc/linux-monitoring-agent/config.yaml
 EOF
 
 cat >"${DEBIAN_DIR}/postinst" <<'EOF'
@@ -58,9 +58,9 @@ set -eu
 
 systemctl daemon-reload || true
 
-echo "cpu-alert installed."
-echo "Edit /etc/cpu-alert/config.yaml, then run:"
-echo "  sudo systemctl enable --now cpu-alert.service"
+echo "linux-monitoring-agent installed."
+echo "Edit /etc/linux-monitoring-agent/config.yaml, then run:"
+echo "  sudo systemctl enable --now linux-monitoring-agent.service"
 EOF
 
 cat >"${DEBIAN_DIR}/prerm" <<'EOF'
@@ -68,7 +68,7 @@ cat >"${DEBIAN_DIR}/prerm" <<'EOF'
 set -eu
 
 if [ "${1:-}" = "remove" ]; then
-  systemctl disable --now cpu-alert.service || true
+  systemctl disable --now linux-monitoring-agent.service || true
 fi
 EOF
 
