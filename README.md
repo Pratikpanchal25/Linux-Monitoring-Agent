@@ -8,7 +8,7 @@ It runs as a systemd service and sends email alerts for sustained high CPU or RA
 Download the `.deb` file from GitHub Releases and run only these commands:
 
 ```bash
-sudo dpkg -i linux-monitoring-agent_1.0.0_amd64.deb
+sudo dpkg -i linux-monitoring-agent_1.0.1_amd64.deb
 sudo systemctl enable --now linux-monitoring-agent.service
 sudo systemctl status linux-monitoring-agent.service
 ```
@@ -78,7 +78,7 @@ If `.deb` install reports dependency errors:
 
 ```bash
 sudo apt-get install -f -y
-sudo dpkg -i linux-monitoring-agent_1.0.0_amd64.deb
+sudo dpkg -i linux-monitoring-agent_1.0.1_amd64.deb
 ```
 
 ## Useful Service Commands
