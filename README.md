@@ -51,7 +51,7 @@ If `.deb` install reports dependency errors:
 
 ```bash
 sudo apt-get install -f -y
-sudo dpkg -i cpu-alert_<version>_amd64.deb
+sudo dpkg -i cpu-alert_v1.0.0_amd64.deb
 ```
 
 ## Useful Service Commands
