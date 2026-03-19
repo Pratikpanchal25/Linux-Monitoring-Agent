@@ -22,8 +22,8 @@ sudo systemctl restart cpu-alert.service
 
 ## Where To Download .deb
 
-- Open: https://github.com/<owner>/<repo>/releases/latest
-- Download asset: `cpu-alert_<version>_amd64.deb`
+- Open: https://github.com/Pratikpanchal25/linux-cpu-alerts/releases/tag/v1.0.0
+- Download asset: `cpu-alert_v1.0.0_amd64.deb`
 
 ## Config File Location
 
