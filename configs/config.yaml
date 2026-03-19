@@ -1,0 +1,11 @@
+thresholds:
+  cpu: 80
+  memory: 75
+interval: 10
+duration: 120
+cooldown: 300
+email:
+  to: "your-email@example.com"
+  from: "cpu-alert@example.com"
+  smtp: "smtp.gmail.com:587"
+  password: "your-app-password"

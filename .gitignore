@@ -1,0 +1,28 @@
+# Binaries
+cpu-alert
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Build and packaging artifacts
+dist/
+*.deb
+*.tar.gz
+
+# Go test and coverage outputs
+*.test
+*.out
+coverage.out
+
+# Local env and secrets
+.env
+.env.*
+*.local
+
+# Editor and OS files
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
