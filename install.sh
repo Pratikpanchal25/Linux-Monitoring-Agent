@@ -1,13 +1,13 @@
 #!/usr/bin/env sh
 set -eu
 
-APP_NAME="linux-monitoring-agent"
+APP_NAME="watchd"
 BIN_PATH="/usr/local/bin/${APP_NAME}"
 CONF_DIR="/etc/${APP_NAME}"
 SERVICE_PATH="/etc/systemd/system/${APP_NAME}.service"
 
 echo "Building ${APP_NAME}..."
-CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -trimpath -ldflags "-s -w" -o "${APP_NAME}" ./cmd/linux-monitoring-agent
+CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -trimpath -ldflags "-s -w" -o "${APP_NAME}" ./cmd/watchd
 
 echo "Installing binary to ${BIN_PATH}..."
 sudo install -m 0755 "${APP_NAME}" "${BIN_PATH}"
@@ -23,7 +23,7 @@ else
 fi
 
 echo "Installing systemd service..."
-sudo install -m 0644 ./packaging/systemd/linux-monitoring-agent.service "${SERVICE_PATH}"
+sudo install -m 0644 ./packaging/systemd/watchd.service "${SERVICE_PATH}"
 
 echo "Reloading systemd and enabling service..."
 sudo systemctl daemon-reload

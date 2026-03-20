@@ -1,11 +1,11 @@
 # Debian Packaging
 
-This folder contains tooling to build a .deb package for Linux Monitoring Agent.
+This folder contains tooling to build a .deb package for watchd.
 
 ## Why this exists
 
 End users should not need Go installed.
-They can install Linux Monitoring Agent with a .deb package and manage it with systemd.
+They can install watchd with a .deb package and manage it with systemd.
 
 ## Build the .deb (maintainer/release machine)
 
@@ -14,14 +14,14 @@ They can install Linux Monitoring Agent with a .deb package and manage it with s
 
 Output package:
 
-    dist/linux-monitoring-agent_1.0.0_amd64.deb
+    dist/watchd_1.0.0_amd64.deb
 
 ## Install the .deb (end user machine)
 
-    sudo dpkg -i linux-monitoring-agent_1.0.0_amd64.deb
-    sudo systemctl enable --now linux-monitoring-agent.service
-    sudo systemctl status linux-monitoring-agent.service
+    sudo dpkg -i watchd_1.0.0_amd64.deb
+    sudo systemctl enable --now watchd.service
+    sudo systemctl status watchd.service
 
 Configuration file path:
 
-    /etc/linux-monitoring-agent/config.yaml
+    /etc/watchd/config.yaml

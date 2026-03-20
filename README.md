@@ -1,6 +1,6 @@
-# Linux Monitoring Agent
+# watchd
 
-Linux Monitoring Agent is a lightweight Linux monitoring daemon.
+watchd is a lightweight Linux monitoring daemon.
 It runs as a systemd service and sends email alerts for sustained high CPU or RAM usage.
 
 ## User Install (Only Steps You Need)
@@ -8,26 +8,26 @@ It runs as a systemd service and sends email alerts for sustained high CPU or RA
 Download the `.deb` file from GitHub Releases and run only these commands:
 
 ```bash
-sudo dpkg -i linux-monitoring-agent_1.0.1_amd64.deb
-sudo systemctl enable --now linux-monitoring-agent.service
-sudo systemctl status linux-monitoring-agent.service
+sudo dpkg -i watchd_1.0.1_amd64.deb
+sudo systemctl enable --now watchd.service
+sudo systemctl status watchd.service
 ```
 
 Then configure email and restart:
 
 ```bash
-sudo nano /etc/linux-monitoring-agent/config.yaml
-sudo systemctl restart linux-monitoring-agent.service
+sudo nano /etc/watchd/config.yaml
+sudo systemctl restart watchd.service
 ```
 
 ## Where To Download .deb
 
-- Open: https://github.com/Pratikpanchal25/Linux-Monitoring-Agent/releases/latest
-- Download asset: `linux-monitoring-agent_1.0.1_amd64.deb`
+- Open: https://github.com/Pratikpanchal25/watchd/releases/latest
+- Download asset: `watchd_1.0.1_amd64.deb`
 
 ## Config File Location
 
-- `/etc/linux-monitoring-agent/config.yaml`
+- `/etc/watchd/config.yaml`
 
 Example config:
 
@@ -40,7 +40,7 @@ duration: 120
 cooldown: 300
 email:
   to: "your-email@example.com"
-  from: "linux-monitoring-agent@example.com"
+  from: "watchd@example.com"
   smtp: "smtp.gmail.com:587"
   password: "your-app-password"
 ```
@@ -66,9 +66,9 @@ It is safer than using your normal account password and can be revoked anytime.
 
 1. Enable 2-Step Verification on your Google account.
 2. Open `Google Account -> Security -> App passwords`.
-3. Select app type `Mail` (or choose custom name like `linux-monitoring-agent`).
+3. Select app type `Mail` (or choose custom name like `watchd`).
 4. Click `Generate` and copy the 16-character password.
-5. Paste it in `email.password` in `/etc/linux-monitoring-agent/config.yaml`.
+5. Paste it in `email.password` in `/etc/watchd/config.yaml`.
 
 Note: If `App passwords` is not visible, ensure 2-Step Verification is enabled and you are not using a restricted workspace/school account.
 
@@ -78,14 +78,14 @@ If `.deb` install reports dependency errors:
 
 ```bash
 sudo apt-get install -f -y
-sudo dpkg -i linux-monitoring-agent_1.0.1_amd64.deb
+sudo dpkg -i watchd_1.0.1_amd64.deb
 ```
 
 ## Useful Service Commands
 
 ```bash
-sudo systemctl restart linux-monitoring-agent.service
-sudo systemctl stop linux-monitoring-agent.service
-sudo systemctl start linux-monitoring-agent.service
-sudo journalctl -u linux-monitoring-agent.service -f
+sudo systemctl restart watchd.service
+sudo systemctl stop watchd.service
+sudo systemctl start watchd.service
+sudo journalctl -u watchd.service -f
 ```

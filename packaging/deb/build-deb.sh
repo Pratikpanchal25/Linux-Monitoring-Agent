@@ -1,10 +1,14 @@
 #!/usr/bin/env sh
 set -eu
 
-# Build a Debian package for Linux Monitoring Agent.
+SCRIPT_DIR="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)"
+REPO_ROOT="$(cd "${SCRIPT_DIR}/../.." && pwd)"
+cd "${REPO_ROOT}"
+
+# Build a Debian package for watchd.
 # This script is for maintainers/release builders, not end users.
 
-APP_NAME="linux-monitoring-agent"
+APP_NAME="watchd"
 VERSION="${1:-1.0.0}"
 ARCH="${2:-amd64}"
 WORK_DIR="dist/${APP_NAME}_${VERSION}_${ARCH}"
@@ -23,15 +27,15 @@ fi
 rm -rf "${WORK_DIR}"
 mkdir -p "${DEBIAN_DIR}"
 mkdir -p "${WORK_DIR}/usr/local/bin"
-mkdir -p "${WORK_DIR}/etc/linux-monitoring-agent"
+mkdir -p "${WORK_DIR}/etc/watchd"
 mkdir -p "${WORK_DIR}/lib/systemd/system"
 
 # Build static single-binary target.
-CGO_ENABLED=0 GOOS=linux GOARCH="${ARCH}" go build -trimpath -ldflags "-s -w" -o "${WORK_DIR}/usr/local/bin/${APP_NAME}" ./cmd/linux-monitoring-agent
+CGO_ENABLED=0 GOOS=linux GOARCH="${ARCH}" go build -trimpath -ldflags "-s -w" -o "${WORK_DIR}/usr/local/bin/${APP_NAME}" ./cmd/watchd
 
 # Install runtime files.
-install -m 0644 ./configs/config.yaml "${WORK_DIR}/etc/linux-monitoring-agent/config.yaml"
-install -m 0644 ./packaging/systemd/linux-monitoring-agent.service "${WORK_DIR}/lib/systemd/system/linux-monitoring-agent.service"
+install -m 0644 ./configs/config.yaml "${WORK_DIR}/etc/watchd/config.yaml"
+install -m 0644 ./packaging/systemd/watchd.service "${WORK_DIR}/lib/systemd/system/watchd.service"
 
 # Package metadata and lifecycle scripts.
 cat >"${DEBIAN_DIR}/control" <<EOF
@@ -42,14 +46,14 @@ Priority: optional
 Architecture: ${ARCH}
 Maintainer: Linux Monitoring Agent maintainers <maintainers@example.com>
 Depends: systemd
-Description: Linux Monitoring Agent for CPU and memory alerts
- Linux Monitoring Agent monitors CPU (/proc/stat) and memory (/proc/meminfo),
+Description: watchd for CPU and memory alerts
+ watchd monitors CPU (/proc/stat) and memory (/proc/meminfo),
  then sends SMTP email alerts when usage is above configured thresholds
  for a sustained duration.
 EOF
 
 cat >"${DEBIAN_DIR}/conffiles" <<EOF
-/etc/linux-monitoring-agent/config.yaml
+/etc/watchd/config.yaml
 EOF
 
 cat >"${DEBIAN_DIR}/postinst" <<'EOF'
@@ -58,9 +62,9 @@ set -eu
 
 systemctl daemon-reload || true
 
-echo "linux-monitoring-agent installed."
-echo "Edit /etc/linux-monitoring-agent/config.yaml, then run:"
-echo "  sudo systemctl enable --now linux-monitoring-agent.service"
+echo "watchd installed."
+echo "Edit /etc/watchd/config.yaml, then run:"
+echo "  sudo systemctl enable --now watchd.service"
 EOF
 
 cat >"${DEBIAN_DIR}/prerm" <<'EOF'
@@ -68,7 +72,7 @@ cat >"${DEBIAN_DIR}/prerm" <<'EOF'
 set -eu
 
 if [ "${1:-}" = "remove" ]; then
-  systemctl disable --now linux-monitoring-agent.service || true
+  systemctl disable --now watchd.service || true
 fi
 EOF
 

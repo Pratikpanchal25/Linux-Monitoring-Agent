@@ -1,6 +1,6 @@
 package metric
 
-import "linux-monitoring-agent/internal/memory"
+import "watchd/internal/memory"
 
 // MemoryCollector samples RAM usage using /proc/meminfo.
 type MemoryCollector struct{}

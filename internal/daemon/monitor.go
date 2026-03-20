@@ -5,9 +5,9 @@ import (
 	"log"
 	"time"
 
-	"linux-monitoring-agent/internal/config"
-	"linux-monitoring-agent/internal/email"
-	"linux-monitoring-agent/internal/metric"
+	"watchd/internal/config"
+	"watchd/internal/email"
+	"watchd/internal/metric"
 )
 
 const (

@@ -1,4 +1,4 @@
-module linux-monitoring-agent
+module watchd
 
 go 1.22
 
